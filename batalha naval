@@ -1,0 +1,40 @@
+import random
+
+# Criar tabuleiro
+tabuleiro = []
+for i in range(5):
+    tabuleiro.append(["~"] * 5)
+
+def mostrar_tabuleiro(tab):
+    for linha in tab:
+        print(" ".join(linha))
+
+print("🚢 Bem-vindo ao jogo BATALHA NAVAL!")
+mostrar_tabuleiro(tabuleiro)
+
+# Escolher posição do navio
+navio_linha = random.randint(0, 4)
+navio_coluna = random.randint(0, 4)
+
+# 4 tentativas
+for turno in range(4):
+    print(f"\nTentativa {turno + 1} de 4")
+    palpite_linha = int(input("Adivinhe a linha (0-4): "))
+    palpite_coluna = int(input("Adivinhe a coluna (0-4): "))
+
+    if palpite_linha == navio_linha and palpite_coluna == navio_coluna:
+        print("🎯 BOOM! Você afundou o navio!")
+        break
+    else:
+        if (palpite_linha < 0 or palpite_linha > 4) or (palpite_coluna < 0 or palpite_coluna > 4):
+            print("🚫 Ops, essa posição não existe no mar.")
+        elif tabuleiro[palpite_linha][palpite_coluna] == "X":
+            print("⚠️ Você já tentou essa posição.")
+        else:
+            print("💦 Errou! O navio não está aí.")
+            tabuleiro[palpite_linha][palpite_coluna] = "X"
+        mostrar_tabuleiro(tabuleiro)
+
+    if turno == 3:
+        print("\n💥 Fim de jogo!")
+        print(f"O navio estava na linha {navio_linha}, coluna {navio_coluna}.")
